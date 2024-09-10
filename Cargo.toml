@@ -4,11 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+candle-core = "0.6.0"
+candle-nn = "0.6.0"
 #actix-web = "4"
 #polars = { version = "0.42.0", features = ["lazy"] }
-linfa = "0.7.0"
-linfa-datasets = { version = "0.7.0", features = ["iris"] }
-linfa-trees = "0.7.0"
+#linfa = "0.7.0"
+#linfa-datasets = { version = "0.7.0", features = ["iris"] }
+#linfa-trees = "0.7.0"
 
 [profile.release]
 opt-level = 'z'     # Optimize for size

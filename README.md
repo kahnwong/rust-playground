@@ -13,3 +13,4 @@ cargo build --release
 - <https://actix.rs/docs/getting-started>
 - <https://docs.rs/polars/latest/polars/index.html>
 - <https://rust-ml.github.io/linfa/rustdocs/linfa/>
+- <https://github.com/ToluClassics/candle-tutorial>
