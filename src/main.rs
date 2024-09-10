@@ -1,19 +1,25 @@
-use polars::prelude::*;
-use std::fs::File;
-
-pub fn calculate() -> Result<DataFrame, PolarsError> {
-    let file = File::open("data/sample.csv")?;
-    let df = CsvReader::new(file).finish()?.lazy();
-
-    let df_transformed = df
-        .select(&[col("foo"), col("bar")])
-        .group_by_stable([col("foo")])
-        .agg([col("bar").min().alias("min_bar")])
-        .collect()?;
-    Ok(df_transformed)
-}
+use linfa::prelude::*;
+use linfa_datasets;
+use linfa_trees::DecisionTree;
 
 fn main() {
-    let df = calculate().unwrap();
-    println!("{}", df);
+    // read data
+    let dataset = linfa_datasets::iris();
+
+    // set params
+    let params = DecisionTree::params();
+    // Set the parameters to the desired values
+    let params = params.max_depth(Some(5));
+
+    // train
+    let tree = params.fit(&dataset).unwrap();
+
+    //test
+    let accuracy = tree
+        .predict(&dataset)
+        .confusion_matrix(&dataset)
+        .unwrap()
+        .accuracy();
+
+    assert!(accuracy > 0.9);
 }
