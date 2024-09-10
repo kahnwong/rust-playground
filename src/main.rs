@@ -1,19 +1,13 @@
-use actix_web::{get, web, App, HttpServer, Responder};
+use polars::prelude::*;
+use std::fs::File;
 
-#[get("/hello/{name}")]
-async fn greet(name: web::Path<String>) -> impl Responder {
-    format!("FFF {name}!")
+pub fn calculate() -> Result<DataFrame, PolarsError> {
+    let file = File::open("data/sample.csv")?;
+    let df = CsvReader::new(file).finish()?.lazy().collect()?;
+    Ok(df)
 }
 
-#[get("/foo/{i}")]
-async fn foo(i: web::Path<String>) -> impl Responder {
-    format!("AAA {i}!")
-}
-
-#[actix_web::main] // or #[tokio::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(greet).service(foo))
-        .bind(("127.0.0.1", 8080))?
-        .run()
-        .await
+fn main() {
+    let df = calculate().unwrap();
+    println!("{}", df);
 }

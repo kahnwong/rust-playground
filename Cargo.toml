@@ -4,7 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-actix-web = "4"
+#actix-web = "4"
+polars = { version = "0.42.0", features = ["lazy"] }
 
 [profile.release]
 opt-level = 'z'     # Optimize for size
