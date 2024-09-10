@@ -22,7 +22,7 @@ repos:
         args: [--mapping, "2", --sequence, "4", --offset, "2", --width, "150", --preserve-quotes]
         exclude: ^.github/dependabot.yaml
   - repo: https://github.com/doublify/pre-commit-rust
-    rev: master
+    rev: v1.0
     hooks:
       - id: fmt
       - id: cargo-check
